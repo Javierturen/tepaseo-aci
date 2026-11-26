@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Gestión de postulaciones - Tepaseo.cl
+{% endblock %}
+
+{% block content %}
+
+    <h1>Gestión de postulaciones</h1>
+
+    <p>
+        Revisa los antecedentes de los futuros
+        paseadores de Tepaseo.cl.
+    </p>
+
+    <a href="{{ url_for('admin.panel') }}">
+        Volver al panel administrativo
+    </a>
+
+    <p>
+        Total de registros: {{ postulaciones|length }}
+    </p>
+
+    {% if postulaciones %}
+
+        <div class="table-container">
+
+            <table border="1" cellpadding="8">
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Contacto</th>
+                        <th>Comuna</th>
+                        <th>Experiencia</th>
+                        <th>Disponibilidad</th>
+                        <th>Estado actual</th>
+                        <th>Acciones</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for postulacion in postulaciones %}
+
+                        <tr>
+
+                            <td>{{ postulacion.id }}</td>
+
+                            <td>{{ postulacion.nombre }}</td>
+
+                            <td>
+                                {{ postulacion.correo }}
+                                <br>
+                                {{ postulacion.telefono }}
+                            </td>
+
+                            <td>
+                                {{ postulacion.comuna.nombre }}
+                            </td>
+
+                            <td>
+                                {{ postulacion.experiencia }}
+                            </td>
+
+                            <td>
+                                {{ postulacion.disponibilidad }}
+                            </td>
+
+                            <td>
+
+                                <strong>
+                                    {{ postulacion.estado|capitalize }}
+                                </strong>
+
+                            </td>
+
+                            <td>
+
+                                {% set opciones = transiciones.get(
+                                    postulacion.estado, ()
+                                ) %}
+
+                                {% if opciones %}
+
+                                    <form method="POST"
+                                          action="{{ url_for(
+                                              'admin.actualizar_postulacion',
+                                              postulacion_id=postulacion.id
+                                          ) }}">
+
+                                        <input type="hidden"
+                                               name="csrf_token"
+                                               value="{{ csrf_token() }}">
+
+                                        <select name="estado" required>
+
+                                            <option value="">
+                                                Seleccionar
+                                            </option>
+
+                                            {% for estado in opciones %}
+
+                                                <option value="{{ estado }}">
+                                                    {{ estado|capitalize }}
+                                                </option>
+
+                                            {% endfor %}
+
+                                        </select>
+
+                                        <button type="submit">
+                                            Actualizar
+                                        </button>
+
+                                    </form>
+
+                                {% else %}
+
+                                    Estado final
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% else %}
+
+        <p>No existen postulaciones registradas.</p>
+
+    {% endif %}
+
+    <p>
+        La aceptación de una postulación corresponde
+        al proceso de selección y no implica
+        contratación automática.
+    </p>
+
+{% endblock %}

@@ -13,6 +13,7 @@
 <body>
 
     <header>
+
         <nav>
             <a href="{{ url_for('public.index') }}">
                 Inicio
@@ -33,7 +34,23 @@
             <a href="{{ url_for('public.postulacion') }}">
                 Trabaja con nosotros
             </a>
+
+            {% if current_user.is_authenticated %}
+
+                <a href="{{ url_for('admin.panel') }}">
+                    Panel administrativo
+                </a>
+
+            {% else %}
+
+                <a href="{{ url_for('admin.login') }}">
+                    Administración
+                </a>
+
+            {% endif %}
+
         </nav>
+
     </header>
 
     <main>
@@ -41,9 +58,13 @@
         {% for categoria, mensaje in
             get_flashed_messages(with_categories=true) %}
 
-            <p role="status" class="{{ categoria }}"
-               style="color: green;">
+            <p role="status"
+               class="{{ categoria }}"
+               style="color: {{ 'red' if categoria == 'error'
+                                 else 'green' }};">
+
                 {{ mensaje }}
+
             </p>
 
         {% endfor %}

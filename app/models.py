@@ -1,3 +1,9 @@
+from flask_login import UserMixin
+from werkzeug.security import (
+    check_password_hash,
+    generate_password_hash,
+)
+
 from app.extensions import db
 
 
@@ -104,3 +110,28 @@ class Postulacion(db.Model):
     )
 
     comuna = db.relationship("Comuna")
+
+
+class Administrador(UserMixin, db.Model):
+    __tablename__ = "administradores"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    usuario = db.Column(
+        db.String(80),
+        unique=True,
+        nullable=False,
+    )
+
+    password_hash = db.Column(
+        db.String(255),
+        nullable=False,
+    )
+
+    def establecer_contrasena(self, contrasena):
+        self.password_hash = generate_password_hash(contrasena)
+
+    def verificar_contrasena(self, contrasena):
+        return check_password_hash(
+            self.password_hash, contrasena
+        )
