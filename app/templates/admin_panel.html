@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Panel administrativo - Tepaseo.cl
+{% endblock %}
+
+{% block content %}
+
+    <h1>Panel administrativo</h1>
+
+    <p>
+        Bienvenido, {{ current_user.usuario }}.
+    </p>
+
+    <form method="POST"
+          action="{{ url_for('admin.salir') }}">
+
+        <input type="hidden"
+               name="csrf_token"
+               value="{{ csrf_token() }}">
+
+        <button type="submit">
+            Cerrar sesión
+        </button>
+
+    </form>
+
+    <hr>
+
+    <h2>Resumen de operaciones</h2>
+
+    <section class="dashboard-grid">
+
+        <article>
+            <h3>Total de solicitudes de paseo</h3>
+            <p>{{ total_solicitudes }}</p>
+        </article>
+
+        <article>
+            <h3>Solicitudes pendientes</h3>
+            <p>{{ pendientes }}</p>
+        </article>
+
+        <article>
+            <h3>Total de postulaciones</h3>
+            <p>{{ total_postulaciones }}</p>
+        </article>
+
+        <article>
+            <h3>Postulaciones recibidas</h3>
+            <p>{{ recibidas }}</p>
+        </article>
+
+    </section>
+
+    <hr>
+
+    <h2>Gestión de operaciones</h2>
+
+    <section>
+
+        <article>
+
+            <h3>Solicitudes de paseo</h3>
+
+            <p>
+                Consulta los datos de los clientes,
+                sus mascotas y los servicios solicitados.
+            </p>
+
+            <a href="{{ url_for('admin.solicitudes') }}">
+                Gestionar solicitudes
+            </a>
+
+        </article>
+
+        <article>
+
+            <h3>Postulaciones de paseadores</h3>
+
+            <p>
+                Revisa los antecedentes y disponibilidad
+                de las personas interesadas en trabajar
+                con Tepaseo.cl.
+            </p>
+
+            <a href="{{ url_for('admin.postulaciones') }}">
+                Gestionar postulaciones
+            </a>
+
+        </article>
+
+    </section>
+
+{% endblock %}

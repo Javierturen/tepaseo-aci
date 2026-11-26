@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Administración - Tepaseo.cl
+{% endblock %}
+
+{% block content %}
+
+    <h1>Acceso administrativo</h1>
+
+    <p>
+        Área exclusiva para personal autorizado de Tepaseo.cl.
+    </p>
+
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.usuario.label }}<br>
+            {{ form.usuario(autocomplete="username") }}
+
+            {% for error in form.usuario.errors %}
+                <span style="color: red;">
+                    {{ error }}
+                </span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.contrasena.label }}<br>
+
+            {{ form.contrasena(
+                autocomplete="current-password"
+            ) }}
+
+            {% for error in form.contrasena.errors %}
+                <span style="color: red;">
+                    {{ error }}
+                </span>
+            {% endfor %}
+        </p>
+
+        <button type="submit">
+            Iniciar sesión
+        </button>
+
+    </form>
+
+    <p>
+        <a href="{{ url_for('public.index') }}">
+            Volver al inicio
+        </a>
+    </p>
+
+{% endblock %}

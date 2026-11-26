@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Gestión de solicitudes - Tepaseo.cl
+{% endblock %}
+
+{% block content %}
+
+    <h1>Gestión de solicitudes de paseo</h1>
+
+    <p>
+        Consulta y administra las solicitudes
+        registradas por nuestros clientes.
+    </p>
+
+    <a href="{{ url_for('admin.panel') }}">
+        Volver al panel administrativo
+    </a>
+
+    <p>
+        Total de registros: {{ solicitudes|length }}
+    </p>
+
+    {% if solicitudes %}
+
+        <div class="table-container">
+
+            <table border="1" cellpadding="8">
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Contacto</th>
+                        <th>Mascota</th>
+                        <th>Comuna</th>
+                        <th>Servicio</th>
+                        <th>Fecha y hora</th>
+                        <th>Observaciones</th>
+                        <th>Estado actual</th>
+                        <th>Acciones</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for solicitud in solicitudes %}
+
+                        <tr>
+
+                            <td>{{ solicitud.id }}</td>
+
+                            <td>
+                                {{ solicitud.cliente.nombre }}
+                            </td>
+
+                            <td>
+                                {{ solicitud.cliente.correo }}
+                                <br>
+                                {{ solicitud.cliente.telefono }}
+                            </td>
+
+                            <td>
+                                {{ solicitud.nombre_mascota }}
+                                <br>
+                                Raza: {{ solicitud.raza or "No indicada" }}
+                                <br>
+                                Tamaño: {{ solicitud.tamano }}
+                            </td>
+
+                            <td>
+                                {{ solicitud.comuna.nombre }}
+                            </td>
+
+                            <td>
+                                {{ solicitud.servicio.nombre }}
+                            </td>
+
+                            <td>
+                                {{ solicitud.fecha.strftime("%d/%m/%Y") }}
+                                <br>
+                                {{ solicitud.horario.strftime("%H:%M") }}
+                            </td>
+
+                            <td>
+                                {{ solicitud.observaciones or "Sin observaciones" }}
+                            </td>
+
+                            <td>
+
+                                <strong>
+                                    {{ solicitud.estado|capitalize }}
+                                </strong>
+
+                            </td>
+
+                            <td>
+
+                                {% set opciones = transiciones.get(
+                                    solicitud.estado, ()
+                                ) %}
+
+                                {% if opciones %}
+
+                                    <form method="POST"
+                                          action="{{ url_for(
+                                              'admin.actualizar_solicitud',
+                                              solicitud_id=solicitud.id
+                                          ) }}">
+
+                                        <input type="hidden"
+                                               name="csrf_token"
+                                               value="{{ csrf_token() }}">
+
+                                        <select name="estado" required>
+
+                                            <option value="">
+                                                Seleccionar
+                                            </option>
+
+                                            {% for estado in opciones %}
+
+                                                <option value="{{ estado }}">
+                                                    {{ estado|capitalize }}
+                                                </option>
+
+                                            {% endfor %}
+
+                                        </select>
+
+                                        <button type="submit">
+                                            Actualizar
+                                        </button>
+
+                                    </form>
+
+                                {% else %}
+
+                                    Estado final
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% else %}
+
+        <p>No existen solicitudes registradas.</p>
+
+    {% endif %}
+
+{% endblock %}
