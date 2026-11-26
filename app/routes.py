@@ -8,9 +8,9 @@ from flask import (
 )
 
 from app.extensions import db
-from app.forms import SolicitudPaseoForm
+from app.forms import PostulacionForm, SolicitudPaseoForm
 from app.models import Comuna, Servicio
-from app.services import crear_solicitud
+from app.services import crear_postulacion, crear_solicitud
 
 
 public = Blueprint("public", __name__)
@@ -92,5 +92,35 @@ def solicitar_paseo():
 
     return render_template(
         "solicitar_paseo.html",
+        form=form,
+    )
+
+
+@public.route("/trabaja-con-nosotros", methods=["GET", "POST"])
+def postulacion():
+    form = PostulacionForm()
+
+    comunas = db.session.scalars(
+        db.select(Comuna).order_by(Comuna.nombre)
+    ).all()
+
+    form.comuna.choices = [(0, "Seleccionar comuna")] + [
+        (comuna.id, comuna.nombre)
+        for comuna in comunas
+    ]
+
+    if form.validate_on_submit():
+        crear_postulacion(form.data)
+
+        flash(
+            "Postulación recibida correctamente. "
+            "Nuestro equipo revisará tus antecedentes.",
+            "success",
+        )
+
+        return redirect(url_for("public.postulacion"))
+
+    return render_template(
+        "postulacion.html",
         form=form,
     )

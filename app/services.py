@@ -1,5 +1,5 @@
 from app.extensions import db
-from app.models import Cliente, SolicitudPaseo
+from app.models import Cliente, Postulacion, SolicitudPaseo
 
 
 def crear_solicitud(datos):
@@ -27,3 +27,21 @@ def crear_solicitud(datos):
     db.session.commit()
 
     return solicitud
+
+
+def crear_postulacion(datos):
+    postulacion = Postulacion(
+        nombre=datos["nombre"],
+        correo=datos["correo"],
+        telefono=datos["telefono"],
+        comuna_id=datos["comuna"],
+        experiencia=datos["experiencia"],
+        disponibilidad=datos["disponibilidad"],
+        acepta_datos=datos["acepta_datos"],
+        estado="recibida",
+    )
+
+    db.session.add(postulacion)
+    db.session.commit()
+
+    return postulacion

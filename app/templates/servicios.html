@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-    <title>Servicios - Tepaseo.cl</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <nav>
-        <a href="/">Inicio</a>
-        <a href="/servicios">Servicios</a>
-        <a href="/cobertura">Cobertura</a>
-        <a href="/solicitar-paseo">Solicitar paseo</a>
-    </nav>
+{% block title %}
+    Servicios - Tepaseo.cl
+{% endblock %}
+
+{% block content %}
 
     <h1>Nuestros servicios</h1>
 
@@ -37,9 +28,13 @@
                 ${{ "{:,}".format(servicio.precio).replace(",", ".") }}
             </p>
 
-            <a href="/cobertura">Consultar cobertura</a>
+            <a href="{{ url_for('public.cobertura') }}">
+                Consultar cobertura
+            </a>
 
-            <a href="/solicitar-paseo">Solicitar paseo</a>
+            <a href="{{ url_for('public.solicitar_paseo') }}">
+                Solicitar paseo
+            </a>
 
         </article>
 
@@ -51,9 +46,4 @@
 
     {% endfor %}
 
-    <footer>
-        <p>Tepaseo.cl - Proyecto ACI 2026</p>
-    </footer>
-
-</body>
-</html>
+{% endblock %}

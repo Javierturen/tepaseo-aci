@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-    <title>Solicitar paseo - Tepaseo.cl</title>
-</head>
-<body>
-    <nav>
-        <a href="/">Inicio</a>
-        <a href="/servicios">Servicios</a>
-        <a href="/cobertura">Cobertura</a>
-        <a href="/solicitar-paseo">Solicitar paseo</a>
-    </nav>
+{% extends "base.html" %}
+
+{% block title %}
+    Solicitar paseo - Tepaseo.cl
+{% endblock %}
+
+{% block content %}
 
     <h1>Solicita un paseo para tu perro</h1>
 
@@ -21,14 +13,8 @@
         en contacto contigo para coordinar el servicio.
     </p>
 
-    {% for categoria, mensaje in
-        get_flashed_messages(with_categories=true) %}
-        <p role="status" style="color: green;">
-            {{ mensaje }}
-        </p>
-    {% endfor %}
-
     <form method="POST">
+
         {{ form.hidden_tag() }}
 
         <h2>Datos del cliente</h2>
@@ -36,6 +22,7 @@
         {% for campo in [form.nombre,
                          form.correo,
                          form.telefono] %}
+
             <p>
                 {{ campo.label }}<br>
                 {{ campo() }}
@@ -46,6 +33,7 @@
                     </span>
                 {% endfor %}
             </p>
+
         {% endfor %}
 
         <h2>Datos de la mascota</h2>
@@ -53,6 +41,7 @@
         {% for campo in [form.nombre_mascota,
                          form.raza,
                          form.tamano] %}
+
             <p>
                 {{ campo.label }}<br>
                 {{ campo() }}
@@ -63,6 +52,7 @@
                     </span>
                 {% endfor %}
             </p>
+
         {% endfor %}
 
         <h2>Datos del servicio</h2>
@@ -72,6 +62,7 @@
                          form.fecha,
                          form.horario,
                          form.observaciones] %}
+
             <p>
                 {{ campo.label }}<br>
                 {{ campo() }}
@@ -82,6 +73,7 @@
                     </span>
                 {% endfor %}
             </p>
+
         {% endfor %}
 
         <p>
@@ -98,6 +90,7 @@
         <button type="submit">
             Enviar solicitud
         </button>
+
     </form>
 
     <p>
@@ -105,8 +98,4 @@
         automáticamente el servicio.
     </p>
 
-    <footer>
-        <p>Tepaseo.cl - Proyecto ACI 2026</p>
-    </footer>
-</body>
-</html>
+{% endblock %}
