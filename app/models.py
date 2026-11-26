@@ -77,3 +77,30 @@ class SolicitudPaseo(db.Model):
     cliente = db.relationship("Cliente")
     comuna = db.relationship("Comuna")
     servicio = db.relationship("Servicio")
+
+
+class Postulacion(db.Model):
+    __tablename__ = "postulaciones"
+
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(120), nullable=False)
+    correo = db.Column(db.String(254), nullable=False)
+    telefono = db.Column(db.String(20), nullable=False)
+
+    comuna_id = db.Column(
+        db.Integer,
+        db.ForeignKey("comunas.id"),
+        nullable=False,
+    )
+
+    experiencia = db.Column(db.Text, nullable=False)
+    disponibilidad = db.Column(db.Text, nullable=False)
+    acepta_datos = db.Column(db.Boolean, nullable=False)
+
+    estado = db.Column(
+        db.String(20),
+        default="recibida",
+        nullable=False,
+    )
+
+    comuna = db.relationship("Comuna")

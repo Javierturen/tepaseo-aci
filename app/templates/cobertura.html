@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-    <title>Cobertura - Tepaseo.cl</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <nav>
-        <a href="/">Inicio</a>
-        <a href="/servicios">Servicios</a>
-        <a href="/cobertura">Cobertura</a>
-        <a href="/solicitar-paseo">Solicitar paseo</a>
-    </nav>
+{% block title %}
+    Cobertura - Tepaseo.cl
+{% endblock %}
+
+{% block content %}
 
     <h1>Consulta nuestra cobertura</h1>
 
@@ -22,7 +13,8 @@
         con servicios de paseo en tu sector.
     </p>
 
-    <form method="GET" action="/cobertura">
+    <form method="GET"
+          action="{{ url_for('public.cobertura') }}">
 
         <label for="comuna">
             Selecciona tu comuna:
@@ -66,7 +58,7 @@
                 para tu mascota.
             </p>
 
-            <a href="/solicitar-paseo">
+            <a href="{{ url_for('public.solicitar_paseo') }}">
                 Solicitar paseo
             </a>
 
@@ -89,9 +81,4 @@
 
     {% endif %}
 
-    <footer>
-        <p>Tepaseo.cl - Proyecto ACI 2026</p>
-    </footer>
-
-</body>
-</html>
+{% endblock %}

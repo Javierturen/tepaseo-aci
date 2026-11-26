@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Trabaja con nosotros - Tepaseo.cl
+{% endblock %}
+
+{% block content %}
+
+    <h1>Trabaja con nosotros</h1>
+
+    <h2>Conviértete en paseador Tepaseo</h2>
+
+    <p>
+        Buscamos personas responsables, comprometidas
+        y que disfruten trabajar con perros.
+    </p>
+
+    <h2>Requisitos generales</h2>
+
+    <ul>
+        <li>Responsabilidad y puntualidad.</li>
+        <li>Compromiso con el bienestar animal.</li>
+        <li>Disponibilidad para realizar paseos.</li>
+        <li>Participar en nuestro proceso de selección.</li>
+        <li>Disposición para recibir capacitación.</li>
+    </ul>
+
+    <hr>
+
+    <h2>Formulario de postulación</h2>
+
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+
+        {% for campo in [form.nombre,
+                         form.correo,
+                         form.telefono,
+                         form.comuna] %}
+
+            <p>
+                {{ campo.label }}<br>
+                {{ campo() }}
+
+                {% for error in campo.errors %}
+                    <span style="color: red;">
+                        {{ error }}
+                    </span>
+                {% endfor %}
+            </p>
+
+        {% endfor %}
+
+        <p>
+
+            {{ form.experiencia.label }}<br>
+
+            {{ form.experiencia(
+                rows=4,
+                placeholder="Describe tu experiencia con perros."
+            ) }}
+
+            {% for error in form.experiencia.errors %}
+                <span style="color: red;">
+                    {{ error }}
+                </span>
+            {% endfor %}
+
+        </p>
+
+        <p>
+            Si no tienes experiencia previa,
+            puedes indicarlo en el formulario.
+        </p>
+
+        <p>
+
+            {{ form.disponibilidad.label }}<br>
+
+            {{ form.disponibilidad(
+                rows=4,
+                placeholder="Indica tus días y horarios disponibles."
+            ) }}
+
+            {% for error in form.disponibilidad.errors %}
+                <span style="color: red;">
+                    {{ error }}
+                </span>
+            {% endfor %}
+
+        </p>
+
+        <p>
+
+            {{ form.acepta_datos() }}
+            {{ form.acepta_datos.label }}
+
+            {% for error in form.acepta_datos.errors %}
+                <span style="color: red;">
+                    {{ error }}
+                </span>
+            {% endfor %}
+
+        </p>
+
+        <button type="submit">
+            Enviar postulación
+        </button>
+
+    </form>
+
+    <p>
+        El envío de una postulación no implica
+        una contratación inmediata.
+    </p>
+
+{% endblock %}
