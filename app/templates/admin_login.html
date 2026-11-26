@@ -1,56 +1,106 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Administración - Tepaseo.cl
+    Acceso administrativo | Tepaseo.cl
 {% endblock %}
 
 {% block content %}
 
-    <h1>Acceso administrativo</h1>
+    <div class="login-layout">
 
-    <p>
-        Área exclusiva para personal autorizado de Tepaseo.cl.
-    </p>
+        <section class="login-brand-panel">
 
-    <form method="POST">
+            <img src="{{ url_for('static', filename='logo.svg') }}"
+                 alt="Logo de Tepaseo.cl">
 
-        {{ form.hidden_tag() }}
+            <p class="eyebrow">
+                Tepaseo.cl · Administración
+            </p>
 
-        <p>
-            {{ form.usuario.label }}<br>
-            {{ form.usuario(autocomplete="username") }}
+            <h2>Cuidamos cada aventura.</h2>
 
-            {% for error in form.usuario.errors %}
-                <span style="color: red;">
-                    {{ error }}
-                </span>
-            {% endfor %}
-        </p>
+            <p>
+                Gestiona los servicios de paseo,
+                las solicitudes de nuestros clientes
+                y nuestro equipo de paseadores
+                desde un solo lugar.
+            </p>
 
-        <p>
-            {{ form.contrasena.label }}<br>
+            <p>
+                Bienestar animal. Confianza. Responsabilidad.
+            </p>
 
-            {{ form.contrasena(
-                autocomplete="current-password"
-            ) }}
+        </section>
 
-            {% for error in form.contrasena.errors %}
-                <span style="color: red;">
-                    {{ error }}
-                </span>
-            {% endfor %}
-        </p>
+        <section class="login-form-panel">
 
-        <button type="submit">
-            Iniciar sesión
-        </button>
+            <p class="eyebrow">Bienvenido nuevamente</p>
 
-    </form>
+            <h1>Acceso administrativo</h1>
 
-    <p>
-        <a href="{{ url_for('public.index') }}">
-            Volver al inicio
-        </a>
-    </p>
+            <p>
+                Ingresa tus credenciales para continuar.
+            </p>
+
+            <form method="POST">
+
+                {{ form.hidden_tag() }}
+
+                <div>
+
+                    {{ form.usuario.label }}
+
+                    {{ form.usuario(
+                        autocomplete="username",
+                        placeholder="Tu usuario"
+                    ) }}
+
+                    {% for error in form.usuario.errors %}
+
+                        <span style="color: #A12626;">
+                            {{ error }}
+                        </span>
+
+                    {% endfor %}
+
+                </div>
+
+                <div>
+
+                    {{ form.contrasena.label }}
+
+                    {{ form.contrasena(
+                        autocomplete="current-password",
+                        placeholder="Tu contraseña"
+                    ) }}
+
+                    {% for error in form.contrasena.errors %}
+
+                        <span style="color: #A12626;">
+                            {{ error }}
+                        </span>
+
+                    {% endfor %}
+
+                </div>
+
+                <button type="submit">
+                    Iniciar sesión
+                </button>
+
+            </form>
+
+            <p class="login-note">
+                Área exclusiva para personal autorizado
+                de Tepaseo.cl.
+            </p>
+
+            <a href="{{ url_for('public.index') }}">
+                ← Volver al sitio web
+            </a>
+
+        </section>
+
+    </div>
 
 {% endblock %}

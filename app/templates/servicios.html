@@ -1,49 +1,143 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Servicios - Tepaseo.cl
+    Servicios y planes | Tepaseo.cl
 {% endblock %}
 
 {% block content %}
 
+    <p class="eyebrow">
+        Planes pensados para tu mejor amigo
+    </p>
+
     <h1>Nuestros servicios</h1>
 
-    <p>Encuentra el paseo ideal para tu mascota.</p>
+    <p class="hero-description">
+        Cada perro tiene su propio ritmo.
+        Encuentra el paseo ideal para sus necesidades
+        y disfruta la tranquilidad de dejarlo
+        en buenas manos.
+    </p>
 
-    {% for servicio in servicios %}
+    <div class="service-grid">
 
-        <article>
+        {% for servicio in servicios %}
 
-            <h2>{{ servicio.nombre }}</h2>
+            <article class="service-card">
 
-            <p>{{ servicio.descripcion }}</p>
+                <img src="{{ url_for('static', filename='logo.svg') }}"
+                     width="48"
+                     height="48"
+                     alt="">
 
-            <p>
-                Duración por paseo:
-                {{ servicio.duracion }} minutos
+                <p class="service-number"
+                   style="margin-top: 20px;">
+                    SERVICIO {{ "%02d"|format(loop.index) }}
+                </p>
+
+                <h3>{{ servicio.nombre }}</h3>
+
+                <p>{{ servicio.descripcion }}</p>
+
+                <p>
+                    Duración: {{ servicio.duracion }}
+                    minutos por paseo
+                </p>
+
+                <strong class="service-price">
+                    ${{ "{:,}".format(servicio.precio).replace(",", ".") }}
+                </strong>
+
+                <a class="button"
+                   href="{{ url_for('public.solicitar_paseo') }}">
+                    Solicitar servicio
+                </a>
+
+            </article>
+
+        {% else %}
+
+            <p>No existen servicios disponibles.</p>
+
+        {% endfor %}
+
+    </div>
+
+    <section class="section">
+
+        <p class="eyebrow">
+            Nuestro compromiso
+        </p>
+
+        <h2>Mucho más que un paseo.</h2>
+
+        <div class="steps-grid">
+
+            <article class="step-card">
+
+                <span class="step-number">01.</span>
+
+                <h3>Bienestar físico</h3>
+
+                <p>
+                    Actividad y movimiento para favorecer
+                    una rutina saludable.
+                </p>
+
+            </article>
+
+            <article class="step-card">
+
+                <span class="step-number">02.</span>
+
+                <h3>Estimulación y exploración</h3>
+
+                <p>
+                    Nuevos olores, espacios y experiencias
+                    para enriquecer su día.
+                </p>
+
+            </article>
+
+            <article class="step-card">
+
+                <span class="step-number">03.</span>
+
+                <h3>Atención responsable</h3>
+
+                <p>
+                    Un equipo comprometido con el cuidado
+                    y las necesidades de cada mascota.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+    <section class="cta-banner">
+
+        <div>
+
+            <p class="eyebrow" style="color: #D9B26F;">
+                Encuentra tu próximo paseo
             </p>
 
+            <h2>¿Estamos en tu comuna?</h2>
+
             <p>
-                Precio:
-                ${{ "{:,}".format(servicio.precio).replace(",", ".") }}
+                Consulta nuestra cobertura antes de solicitar
+                un servicio.
             </p>
 
-            <a href="{{ url_for('public.cobertura') }}">
-                Consultar cobertura
-            </a>
+        </div>
 
-            <a href="{{ url_for('public.solicitar_paseo') }}">
-                Solicitar paseo
-            </a>
+        <a class="button button-light"
+           href="{{ url_for('public.cobertura') }}">
+            Consultar cobertura
+        </a>
 
-        </article>
-
-        <hr>
-
-    {% else %}
-
-        <p>No existen servicios disponibles.</p>
-
-    {% endfor %}
+    </section>
 
 {% endblock %}

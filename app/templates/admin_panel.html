@@ -1,95 +1,183 @@
-{% extends "base.html" %}
+{% extends "admin_base.html" %}
 
 {% block title %}
-    Panel administrativo - Tepaseo.cl
+    Panel administrativo | Tepaseo.cl
 {% endblock %}
 
-{% block content %}
+{% block admin_content %}
 
-    <h1>Panel administrativo</h1>
+    <div class="admin-heading">
 
-    <p>
-        Bienvenido, {{ current_user.usuario }}.
-    </p>
+        <p class="eyebrow">Resumen general</p>
 
-    <form method="POST"
-          action="{{ url_for('admin.salir') }}">
+        <h1>Panel administrativo</h1>
 
-        <input type="hidden"
-               name="csrf_token"
-               value="{{ csrf_token() }}">
+        <p>
+            Bienvenido, {{ current_user.usuario }}.
+            Consulta el estado de las operaciones de Tepaseo.cl.
+        </p>
 
-        <button type="submit">
-            Cerrar sesión
-        </button>
-
-    </form>
-
-    <hr>
-
-    <h2>Resumen de operaciones</h2>
+    </div>
 
     <section class="dashboard-grid">
 
-        <article>
+        <article class="metric-card">
+
+            <div class="metric-icon">
+
+                <svg viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.8">
+
+                    <rect x="5" y="4" width="14" height="18" rx="2"/>
+                    <rect x="9" y="2" width="6" height="4" rx="1"/>
+                    <path d="M8 11h8M8 15h8M8 19h5"/>
+
+                </svg>
+
+            </div>
+
             <h3>Total de solicitudes de paseo</h3>
+
             <p>{{ total_solicitudes }}</p>
+
+            <small>Solicitudes registradas</small>
+
         </article>
 
-        <article>
+        <article class="metric-card pending">
+
+            <div class="metric-icon">
+
+                <svg viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.8">
+
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 6v6l4 2"/>
+
+                </svg>
+
+            </div>
+
             <h3>Solicitudes pendientes</h3>
+
             <p>{{ pendientes }}</p>
+
+            <small>Esperando confirmación</small>
+
         </article>
 
-        <article>
+        <article class="metric-card">
+
+            <div class="metric-icon">
+
+                <svg viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.8">
+
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M2 21v-3a7 7 0 0 1 14 0v3"/>
+                    <path d="M17 4a4 4 0 0 1 0 8M18 15a6 6 0 0 1 4 6"/>
+
+                </svg>
+
+            </div>
+
             <h3>Total de postulaciones</h3>
+
             <p>{{ total_postulaciones }}</p>
+
+            <small>Postulantes registrados</small>
+
         </article>
 
-        <article>
+        <article class="metric-card pending">
+
+            <div class="metric-icon">
+
+                <svg viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.8">
+
+                    <path d="M4 4h16l2 10v6H2v-6z"/>
+                    <path d="M2 14h6l2 3h4l2-3h6"/>
+
+                </svg>
+
+            </div>
+
             <h3>Postulaciones recibidas</h3>
+
             <p>{{ recibidas }}</p>
+
+            <small>Pendientes de revisión</small>
+
         </article>
 
     </section>
 
-    <hr>
+    <h2 class="admin-section-title">
+        Gestión de operaciones
+    </h2>
 
-    <h2>Gestión de operaciones</h2>
+    <section class="operation-grid">
 
-    <section>
+        <article class="operation-card">
 
-        <article>
+            <p class="eyebrow">Módulo 01</p>
 
             <h3>Solicitudes de paseo</h3>
 
             <p>
-                Consulta los datos de los clientes,
+                Consulta los antecedentes de los clientes,
                 sus mascotas y los servicios solicitados.
+                Gestiona el estado de cada solicitud.
             </p>
 
-            <a href="{{ url_for('admin.solicitudes') }}">
-                Gestionar solicitudes
+            <a class="button"
+               href="{{ url_for('admin.solicitudes') }}">
+                Gestionar solicitudes →
             </a>
 
         </article>
 
-        <article>
+        <article class="operation-card">
+
+            <p class="eyebrow">Módulo 02</p>
 
             <h3>Postulaciones de paseadores</h3>
 
             <p>
-                Revisa los antecedentes y disponibilidad
-                de las personas interesadas en trabajar
-                con Tepaseo.cl.
+                Revisa la experiencia y disponibilidad
+                de los postulantes y administra
+                su proceso de selección.
             </p>
 
-            <a href="{{ url_for('admin.postulaciones') }}">
-                Gestionar postulaciones
+            <a class="button"
+               href="{{ url_for('admin.postulaciones') }}">
+                Gestionar postulaciones →
             </a>
 
         </article>
 
     </section>
+
+    <div class="admin-info">
+
+        <strong>Información del sistema</strong>
+
+        <p>
+            Los indicadores se actualizan a partir de los
+            registros almacenados en la base de datos.
+            Utiliza los módulos de gestión para revisar
+            y actualizar las operaciones.
+        </p>
+
+    </div>
 
 {% endblock %}

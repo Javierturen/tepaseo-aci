@@ -1,85 +1,198 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
+    <meta name="description"
+          content="Tepaseo.cl. Paseos y bienestar animal en Santiago.">
+
     <title>
         {% block title %}Tepaseo.cl{% endblock %}
     </title>
-</head>
 
+    <link rel="icon"
+          type="image/svg+xml"
+          href="{{ url_for('static', filename='logo.svg') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='styles.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='admin.css') }}">
+
+</head>
 <body>
 
-    <header>
+    {% block layout %}
 
-        <nav>
-            <a href="{{ url_for('public.index') }}">
-                Inicio
-            </a>
+        <header class="site-header">
 
-            <a href="{{ url_for('public.servicios') }}">
-                Servicios
-            </a>
+            <div class="container navbar">
 
-            <a href="{{ url_for('public.cobertura') }}">
-                Cobertura
-            </a>
+                <a class="brand"
+                   href="{{ url_for('public.index') }}"
+                   aria-label="Tepaseo.cl - Inicio">
 
-            <a href="{{ url_for('public.solicitar_paseo') }}">
-                Solicitar paseo
-            </a>
+                    <img src="{{ url_for('static', filename='logo.svg') }}"
+                         alt="">
 
-            <a href="{{ url_for('public.postulacion') }}">
-                Trabaja con nosotros
-            </a>
+                    <span class="brand-name">
+                        tepaseo<span>.cl</span>
+                    </span>
 
-            {% if current_user.is_authenticated %}
-
-                <a href="{{ url_for('admin.panel') }}">
-                    Panel administrativo
                 </a>
 
-            {% else %}
+                <nav class="nav-links"
+                     aria-label="Navegación principal">
 
-                <a href="{{ url_for('admin.login') }}">
-                    Administración
-                </a>
+                    <a href="{{ url_for('public.index') }}">
+                        Inicio
+                    </a>
 
-            {% endif %}
+                    <a href="{{ url_for('public.servicios') }}">
+                        Servicios
+                    </a>
 
-        </nav>
+                    <a href="{{ url_for('public.cobertura') }}">
+                        Cobertura
+                    </a>
 
-    </header>
+                    <a href="{{ url_for('public.postulacion') }}">
+                        Trabaja con nosotros
+                    </a>
 
-    <main>
+                    {% if current_user.is_authenticated %}
 
-        {% for categoria, mensaje in
-            get_flashed_messages(with_categories=true) %}
+                        <a href="{{ url_for('admin.panel') }}">
+                            Panel administrativo
+                        </a>
 
-            <p role="status"
-               class="{{ categoria }}"
-               style="color: {{ 'red' if categoria == 'error'
-                                 else 'green' }};">
+                    {% endif %}
 
-                {{ mensaje }}
+                    <a class="nav-cta"
+                       href="{{ url_for('public.solicitar_paseo') }}">
+                        Solicitar paseo
+                    </a>
 
-            </p>
+                </nav>
 
-        {% endfor %}
+            </div>
 
-        {% block content %}
+        </header>
 
-        {% endblock %}
+        <main class="container site-main">
 
-    </main>
+            {% block mensajes %}
 
-    <footer>
-        <p>
-            Tepaseo.cl - Proyecto Integrador ACI 2026
-        </p>
-    </footer>
+                {% for categoria, mensaje in
+                    get_flashed_messages(with_categories=true) %}
+
+                    <div role="status"
+                         class="flash {{ categoria }}">
+
+                        {{ mensaje }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endblock %}
+
+            {% block content %}{% endblock %}
+
+        </main>
+
+        <footer class="site-footer">
+
+            <div class="container">
+
+                <div class="footer-grid">
+
+                    <section>
+
+                        <a class="brand"
+                           href="{{ url_for('public.index') }}">
+
+                            <img src="{{ url_for(
+                                'static', filename='logo.svg'
+                            ) }}" alt="">
+
+                            <span class="brand-name">
+                                tepaseo<span>.cl</span>
+                            </span>
+
+                        </a>
+
+                        <p style="margin-top: 20px; max-width: 350px;">
+                            Grandes paseos, pequeñas aventuras.
+                            Cuidamos el bienestar de tu mejor amigo
+                            con responsabilidad y cariño.
+                        </p>
+
+                    </section>
+
+                    <section class="footer-links">
+
+                        <h3>Explora Tepaseo</h3>
+
+                        <a href="{{ url_for('public.servicios') }}">
+                            Nuestros servicios
+                        </a>
+
+                        <a href="{{ url_for('public.cobertura') }}">
+                            Zonas de cobertura
+                        </a>
+
+                        <a href="{{ url_for('public.solicitar_paseo') }}">
+                            Solicitar paseo
+                        </a>
+
+                    </section>
+
+                    <section class="footer-links">
+
+                        <h3>Nuestro equipo</h3>
+
+                        <a href="{{ url_for('public.postulacion') }}">
+                            Trabaja con nosotros
+                        </a>
+
+                        {% if current_user.is_authenticated %}
+
+                            <a href="{{ url_for('admin.panel') }}">
+                                Panel administrativo
+                            </a>
+
+                        {% else %}
+
+                            <a href="{{ url_for('admin.login') }}">
+                                Administración
+                            </a>
+
+                        {% endif %}
+
+                        <p>Santiago, Chile</p>
+
+                    </section>
+
+                </div>
+
+                <div class="footer-bottom">
+
+                    <span>© 2026 Tepaseo.cl</span>
+
+                    <span>Proyecto Integrador ACI · UDP</span>
+
+                </div>
+
+            </div>
+
+        </footer>
+
+    {% endblock %}
 
 </body>
 </html>

@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 380 410">
+
+    <rect width="380" height="410"
+          rx="22" fill="#DCE9DF"/>
+
+    <circle cx="280" cy="94"
+            r="49" fill="#E9C989"/>
+
+    <path d="M0 210Q70 145 150 201T380 185V410H0Z"
+          fill="#B5CFBA"/>
+
+    <path d="M0 270Q100 190 210 260T380 230V410H0Z"
+          fill="#8FB49A"/>
+
+    <path d="M0 350Q180 270 380 330V410H0Z"
+          fill="#F0E5CD"/>
+
+    <g fill="#365F4B">
+
+        <path d="M42 240V120M42 170L15 140M42 192L70 151"
+              stroke="#365F4B"
+              stroke-width="5"
+              fill="none"/>
+
+        <ellipse cx="40" cy="102" rx="35" ry="58"/>
+        <ellipse cx="12" cy="144" rx="23" ry="35"/>
+        <ellipse cx="72" cy="140" rx="23" ry="35"/>
+
+    </g>
+
+    <ellipse cx="202" cy="352"
+             rx="130" ry="15"
+             fill="#517A5E" opacity=".13"/>
+
+    <g stroke-linecap="round">
+
+        <path d="M152 230L132 282L110 339"
+              stroke="#263E35"
+              stroke-width="27" fill="none"/>
+
+        <path d="M183 232L190 284L216 337"
+              stroke="#36584A"
+              stroke-width="27" fill="none"/>
+
+        <path d="M111 339L92 343M216 337L239 341"
+              stroke="#1F4F3E"
+              stroke-width="17"/>
+
+        <path d="M149 141Q171 127 191 146L202 232
+                 Q173 246 134 229Z"
+              fill="#F7F1E7"/>
+
+        <path d="M146 151L118 192L134 222"
+              stroke="#F7F1E7"
+              stroke-width="22" fill="none"/>
+
+        <path d="M190 153L216 183L248 210"
+              stroke="#F7F1E7"
+              stroke-width="22" fill="none"/>
+
+        <path d="M246 210L253 216"
+              stroke="#BD865F"
+              stroke-width="12"/>
+
+        <rect x="159" y="116"
+              width="20" height="26"
+              rx="8" fill="#BD865F"/>
+
+        <ellipse cx="168" cy="91"
+                 rx="27" ry="34"
+                 fill="#CB956D"/>
+
+        <path d="M140 100Q124 49 168 52
+                 Q205 50 197 88L188 74
+                 Q160 86 143 76Z"
+              fill="#263E35"/>
+
+        <path d="M253 216Q282 231 291 279"
+              stroke="#1F4F3E"
+              stroke-width="3" fill="none"/>
+
+    </g>
+
+    <g>
+
+        <path d="M250 288Q219 269 227 248"
+              fill="none"
+              stroke="#A66C42"
+              stroke-width="13"
+              stroke-linecap="round"/>
+
+        <ellipse cx="280" cy="305"
+                 rx="47" ry="28"
+                 fill="#B9804D"/>
+
+        <path d="M250 313L244 347
+                 M275 317L279 348
+                 M309 313L317 347"
+              stroke="#B9804D"
+              stroke-width="15"
+              stroke-linecap="round"/>
+
+        <ellipse cx="317" cy="274"
+                 rx="30" ry="29"
+                 fill="#D7A56B"/>
+
+        <ellipse cx="297" cy="274"
+                 rx="12" ry="24"
+                 fill="#95613B"
+                 transform="rotate(18 297 274)"/>
+
+        <ellipse cx="337" cy="288"
+                 rx="21" ry="13"
+                 fill="#EAD0A5"/>
+
+        <ellipse cx="354" cy="284"
+                 rx="6" ry="5"
+                 fill="#26302B"/>
+
+        <circle cx="330" cy="269"
+                r="3.5" fill="#26302B"/>
+
+        <path d="M299 297L323 304"
+              stroke="#1F4F3E"
+              stroke-width="8"
+              stroke-linecap="round"/>
+
+        <circle cx="319" cy="304"
+                r="5" fill="#E4BD72"/>
+
+    </g>
+
+    <g fill="#FFFFFF" opacity=".9">
+
+        <circle cx="92" cy="54" r="3"/>
+        <circle cx="111" cy="75" r="2"/>
+
+        <path d="M326 135v20m-10-10h20"
+              stroke="#FFFFFF"
+              stroke-width="2"/>
+
+    </g>
+
+    <text x="24" y="384"
+          fill="#365F4B"
+          font-family="Arial, sans-serif"
+          font-size="10"
+          font-weight="bold"
+          letter-spacing="2">
+        EL AIRE LIBRE LES HACE BIEN.
+    </text>
+
+</svg>
