@@ -9,7 +9,9 @@ from app.seed import cargar_datos
 def app():
     application = create_app({
         "TESTING": True,
+        "SECRET_KEY": "clave-exclusiva-de-pruebas",
         "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:",
+        "WTF_CSRF_ENABLED": False,
     })
 
     with application.app_context():
