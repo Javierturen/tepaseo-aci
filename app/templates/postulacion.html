@@ -1,117 +1,276 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Trabaja con nosotros - Tepaseo.cl
+    Trabaja con nosotros | Tepaseo.cl
 {% endblock %}
 
 {% block content %}
 
-    <h1>Trabaja con nosotros</h1>
+    <section class="hero">
 
-    <h2>Conviértete en paseador Tepaseo</h2>
+        <div>
 
-    <p>
-        Buscamos personas responsables, comprometidas
-        y que disfruten trabajar con perros.
-    </p>
-
-    <h2>Requisitos generales</h2>
-
-    <ul>
-        <li>Responsabilidad y puntualidad.</li>
-        <li>Compromiso con el bienestar animal.</li>
-        <li>Disponibilidad para realizar paseos.</li>
-        <li>Participar en nuestro proceso de selección.</li>
-        <li>Disposición para recibir capacitación.</li>
-    </ul>
-
-    <hr>
-
-    <h2>Formulario de postulación</h2>
-
-    <form method="POST">
-
-        {{ form.hidden_tag() }}
-
-        {% for campo in [form.nombre,
-                         form.correo,
-                         form.telefono,
-                         form.comuna] %}
-
-            <p>
-                {{ campo.label }}<br>
-                {{ campo() }}
-
-                {% for error in campo.errors %}
-                    <span style="color: red;">
-                        {{ error }}
-                    </span>
-                {% endfor %}
+            <p class="eyebrow">
+                Crece junto a nosotros
             </p>
 
-        {% endfor %}
+            <h1>
+                Trabaja con
+                <em>nosotros.</em>
+            </h1>
 
-        <p>
+            <p class="hero-description">
+                Transforma tu pasión por los perros
+                en una oportunidad para crecer
+                y contribuir al bienestar animal.
+            </p>
 
-            {{ form.experiencia.label }}<br>
+            <a class="button" href="#formulario">
+                Quiero postular
+            </a>
 
-            {{ form.experiencia(
-                rows=4,
-                placeholder="Describe tu experiencia con perros."
-            ) }}
+        </div>
 
-            {% for error in form.experiencia.errors %}
-                <span style="color: red;">
-                    {{ error }}
-                </span>
+        <div>
+
+            <img class="hero-image"
+                 src="{{ url_for('static', filename='hero.svg') }}"
+                 alt="Paseador acompañando a un perro en un parque">
+
+        </div>
+
+    </section>
+
+    <section class="trust-strip">
+
+        <div class="trust-item">
+
+            <div class="trust-icon">01</div>
+
+            <div>
+
+                <strong>Responsabilidad</strong>
+
+                <p>
+                    Compromiso y puntualidad.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="trust-item">
+
+            <div class="trust-icon">02</div>
+
+            <div>
+
+                <strong>Bienestar animal</strong>
+
+                <p>
+                    Respeto y cuidado de las mascotas.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="trust-item">
+
+            <div class="trust-icon">03</div>
+
+            <div>
+
+                <strong>Aprendizaje</strong>
+
+                <p>
+                    Disposición para recibir capacitación.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="section">
+
+        <p class="eyebrow">
+            Nuestro proceso de selección
+        </p>
+
+        <h2>Forma parte del equipo Tepaseo.</h2>
+
+        <div class="steps-grid">
+
+            <article class="step-card">
+
+                <span class="step-number">01.</span>
+
+                <h3>Postula</h3>
+
+                <p>
+                    Completa el formulario con tus antecedentes,
+                    experiencia y disponibilidad.
+                </p>
+
+            </article>
+
+            <article class="step-card">
+
+                <span class="step-number">02.</span>
+
+                <h3>Revisamos tu perfil</h3>
+
+                <p>
+                    Nuestro equipo evaluará la información
+                    que nos proporcionaste.
+                </p>
+
+            </article>
+
+            <article class="step-card">
+
+                <span class="step-number">03.</span>
+
+                <h3>Proceso de selección</h3>
+
+                <p>
+                    Si tu perfil cumple con nuestras necesidades,
+                    podremos contactarte para continuar
+                    el proceso.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+    <section class="section" id="formulario">
+
+        <p class="eyebrow">
+            Comienza tu postulación
+        </p>
+
+        <h2>Formulario de postulación</h2>
+
+        <p class="section-intro">
+            Completa los siguientes antecedentes.
+            No necesitas tener experiencia previa para
+            enviar tu postulación.
+        </p>
+
+        <form method="POST">
+
+            {{ form.hidden_tag() }}
+
+            <h2>01. Información personal</h2>
+
+            {% for campo in [
+                form.nombre,
+                form.correo,
+                form.telefono,
+                form.comuna
+            ] %}
+
+                <div>
+
+                    {{ campo.label }}
+
+                    {{ campo() }}
+
+                    {% for error in campo.errors %}
+
+                        <span style="color: #A12626;">
+                            {{ error }}
+                        </span>
+
+                    {% endfor %}
+
+                </div>
+
             {% endfor %}
 
-        </p>
+            <h2>02. Experiencia y disponibilidad</h2>
 
-        <p>
-            Si no tienes experiencia previa,
-            puedes indicarlo en el formulario.
-        </p>
+            <div>
 
-        <p>
+                {{ form.experiencia.label }}
 
-            {{ form.disponibilidad.label }}<br>
+                {{ form.experiencia(
+                    rows=5,
+                    placeholder="Cuéntanos sobre tu experiencia."
+                ) }}
 
-            {{ form.disponibilidad(
-                rows=4,
-                placeholder="Indica tus días y horarios disponibles."
-            ) }}
+                {% for error in form.experiencia.errors %}
 
-            {% for error in form.disponibilidad.errors %}
-                <span style="color: red;">
-                    {{ error }}
-                </span>
-            {% endfor %}
+                    <span style="color: #A12626;">
+                        {{ error }}
+                    </span>
 
-        </p>
+                {% endfor %}
 
-        <p>
+            </div>
 
-            {{ form.acepta_datos() }}
-            {{ form.acepta_datos.label }}
+            <p>
+                Si no tienes experiencia previa,
+                puedes indicarlo en este campo.
+            </p>
 
-            {% for error in form.acepta_datos.errors %}
-                <span style="color: red;">
-                    {{ error }}
-                </span>
-            {% endfor %}
+            <div>
 
-        </p>
+                {{ form.disponibilidad.label }}
 
-        <button type="submit">
-            Enviar postulación
-        </button>
+                {{ form.disponibilidad(
+                    rows=4,
+                    placeholder="Ej. Lunes a viernes de 09:00 a 18:00."
+                ) }}
 
-    </form>
+                {% for error in form.disponibilidad.errors %}
 
-    <p>
-        El envío de una postulación no implica
-        una contratación inmediata.
-    </p>
+                    <span style="color: #A12626;">
+                        {{ error }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="flash success">
+
+                <strong>Proceso de selección</strong>
+
+                <p style="margin-bottom: 0;">
+                    El envío de una postulación no implica
+                    contratación inmediata.
+                    Nuestro equipo revisará tus antecedentes.
+                </p>
+
+            </div>
+
+            <p>
+
+                {{ form.acepta_datos() }}
+
+                {{ form.acepta_datos.label }}
+
+                {% for error in form.acepta_datos.errors %}
+
+                    <span style="color: #A12626;">
+                        {{ error }}
+                    </span>
+
+                {% endfor %}
+
+            </p>
+
+            <button type="submit">
+                Enviar postulación
+            </button>
+
+        </form>
+
+    </section>
 
 {% endblock %}

@@ -1,42 +1,52 @@
-{% extends "base.html" %}
+{% extends "admin_base.html" %}
 
 {% block title %}
-    Gestión de postulaciones - Tepaseo.cl
+    Gestión de postulaciones | Tepaseo.cl
 {% endblock %}
 
-{% block content %}
+{% block admin_content %}
 
-    <h1>Gestión de postulaciones</h1>
+    <div class="admin-heading">
 
-    <p>
-        Revisa los antecedentes de los futuros
-        paseadores de Tepaseo.cl.
-    </p>
+        <p class="eyebrow">Gestión de personas</p>
 
-    <a href="{{ url_for('admin.panel') }}">
-        Volver al panel administrativo
-    </a>
+        <h1>Postulaciones de paseadores</h1>
 
-    <p>
-        Total de registros: {{ postulaciones|length }}
-    </p>
+        <p>
+            Revisa los antecedentes de las personas
+            interesadas en formar parte de Tepaseo.cl.
+        </p>
+
+    </div>
+
+    <div class="admin-toolbar">
+
+        <span class="record-count">
+            Total de registros: {{ postulaciones|length }}
+        </span>
+
+        <a class="button button-secondary"
+           href="{{ url_for('admin.panel') }}">
+            ← Volver al panel
+        </a>
+
+    </div>
 
     {% if postulaciones %}
 
         <div class="table-container">
 
-            <table border="1" cellpadding="8">
+            <table aria-label="Postulaciones de paseadores">
 
                 <thead>
 
                     <tr>
                         <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Contacto</th>
+                        <th>Postulante y contacto</th>
                         <th>Comuna</th>
                         <th>Experiencia</th>
                         <th>Disponibilidad</th>
-                        <th>Estado actual</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
 
@@ -48,33 +58,38 @@
 
                         <tr>
 
-                            <td>{{ postulacion.id }}</td>
-
-                            <td>{{ postulacion.nombre }}</td>
+                            <td>#{{ postulacion.id }}</td>
 
                             <td>
-                                {{ postulacion.correo }}
-                                <br>
-                                {{ postulacion.telefono }}
+
+                                <span class="table-person">
+                                    {{ postulacion.nombre }}
+                                </span>
+
+                                <span class="table-detail">
+                                    {{ postulacion.correo }}
+                                </span>
+
+                                <span class="table-detail">
+                                    {{ postulacion.telefono }}
+                                </span>
+
                             </td>
 
-                            <td>
-                                {{ postulacion.comuna.nombre }}
-                            </td>
+                            <td>{{ postulacion.comuna.nombre }}</td>
 
-                            <td>
-                                {{ postulacion.experiencia }}
-                            </td>
+                            <td>{{ postulacion.experiencia }}</td>
 
-                            <td>
-                                {{ postulacion.disponibilidad }}
-                            </td>
+                            <td>{{ postulacion.disponibilidad }}</td>
 
                             <td>
 
-                                <strong>
+                                <span class="status-pill"
+                                      data-state="{{ postulacion.estado }}">
+
                                     {{ postulacion.estado|capitalize }}
-                                </strong>
+
+                                </span>
 
                             </td>
 
@@ -96,7 +111,9 @@
                                                name="csrf_token"
                                                value="{{ csrf_token() }}">
 
-                                        <select name="estado" required>
+                                        <select name="estado"
+                                                aria-label="Nuevo estado de postulación {{ postulacion.id }}"
+                                                required>
 
                                             <option value="">
                                                 Seleccionar
@@ -120,7 +137,9 @@
 
                                 {% else %}
 
-                                    Estado final
+                                    <span class="final-state">
+                                        Estado final
+                                    </span>
 
                                 {% endif %}
 
@@ -138,14 +157,29 @@
 
     {% else %}
 
-        <p>No existen postulaciones registradas.</p>
+        <div class="empty-state">
+
+            <h3>No existen postulaciones registradas.</h3>
+
+            <p>
+                Las nuevas postulaciones aparecerán
+                automáticamente en esta sección.
+            </p>
+
+        </div>
 
     {% endif %}
 
-    <p>
-        La aceptación de una postulación corresponde
-        al proceso de selección y no implica
-        contratación automática.
-    </p>
+    <div class="admin-info">
+
+        <strong>Proceso de selección</strong>
+
+        <p>
+            La aceptación de una postulación corresponde
+            al proceso de selección y no implica
+            contratación automática.
+        </p>
+
+    </div>
 
 {% endblock %}

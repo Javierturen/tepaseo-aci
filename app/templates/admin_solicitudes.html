@@ -1,44 +1,54 @@
-{% extends "base.html" %}
+{% extends "admin_base.html" %}
 
 {% block title %}
-    Gestión de solicitudes - Tepaseo.cl
+    Gestión de solicitudes | Tepaseo.cl
 {% endblock %}
 
-{% block content %}
+{% block admin_content %}
 
-    <h1>Gestión de solicitudes de paseo</h1>
+    <div class="admin-heading">
 
-    <p>
-        Consulta y administra las solicitudes
-        registradas por nuestros clientes.
-    </p>
+        <p class="eyebrow">Gestión de servicios</p>
 
-    <a href="{{ url_for('admin.panel') }}">
-        Volver al panel administrativo
-    </a>
+        <h1>Solicitudes de paseo</h1>
 
-    <p>
-        Total de registros: {{ solicitudes|length }}
-    </p>
+        <p>
+            Consulta y administra los servicios
+            solicitados por nuestros clientes.
+        </p>
+
+    </div>
+
+    <div class="admin-toolbar">
+
+        <span class="record-count">
+            Total de registros: {{ solicitudes|length }}
+        </span>
+
+        <a class="button button-secondary"
+           href="{{ url_for('admin.panel') }}">
+            ← Volver al panel
+        </a>
+
+    </div>
 
     {% if solicitudes %}
 
         <div class="table-container">
 
-            <table border="1" cellpadding="8">
+            <table aria-label="Solicitudes de paseo">
 
                 <thead>
 
                     <tr>
                         <th>ID</th>
-                        <th>Cliente</th>
-                        <th>Contacto</th>
+                        <th>Cliente y contacto</th>
                         <th>Mascota</th>
                         <th>Comuna</th>
                         <th>Servicio</th>
                         <th>Fecha y hora</th>
                         <th>Observaciones</th>
-                        <th>Estado actual</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
 
@@ -50,38 +60,54 @@
 
                         <tr>
 
-                            <td>{{ solicitud.id }}</td>
+                            <td>#{{ solicitud.id }}</td>
 
                             <td>
-                                {{ solicitud.cliente.nombre }}
+
+                                <span class="table-person">
+                                    {{ solicitud.cliente.nombre }}
+                                </span>
+
+                                <span class="table-detail">
+                                    {{ solicitud.cliente.correo }}
+                                </span>
+
+                                <span class="table-detail">
+                                    {{ solicitud.cliente.telefono }}
+                                </span>
+
                             </td>
 
                             <td>
-                                {{ solicitud.cliente.correo }}
-                                <br>
-                                {{ solicitud.cliente.telefono }}
+
+                                <span class="table-person">
+                                    {{ solicitud.nombre_mascota }}
+                                </span>
+
+                                <span class="table-detail">
+                                    {{ solicitud.raza or "Raza no indicada" }}
+                                </span>
+
+                                <span class="table-detail">
+                                    Tamaño: {{ solicitud.tamano }}
+                                </span>
+
                             </td>
 
-                            <td>
-                                {{ solicitud.nombre_mascota }}
-                                <br>
-                                Raza: {{ solicitud.raza or "No indicada" }}
-                                <br>
-                                Tamaño: {{ solicitud.tamano }}
-                            </td>
+                            <td>{{ solicitud.comuna.nombre }}</td>
+
+                            <td>{{ solicitud.servicio.nombre }}</td>
 
                             <td>
-                                {{ solicitud.comuna.nombre }}
-                            </td>
 
-                            <td>
-                                {{ solicitud.servicio.nombre }}
-                            </td>
-
-                            <td>
                                 {{ solicitud.fecha.strftime("%d/%m/%Y") }}
-                                <br>
-                                {{ solicitud.horario.strftime("%H:%M") }}
+
+                                <span class="table-detail">
+
+                                    {{ solicitud.horario.strftime("%H:%M") }}
+
+                                </span>
+
                             </td>
 
                             <td>
@@ -90,9 +116,12 @@
 
                             <td>
 
-                                <strong>
+                                <span class="status-pill"
+                                      data-state="{{ solicitud.estado }}">
+
                                     {{ solicitud.estado|capitalize }}
-                                </strong>
+
+                                </span>
 
                             </td>
 
@@ -114,7 +143,9 @@
                                                name="csrf_token"
                                                value="{{ csrf_token() }}">
 
-                                        <select name="estado" required>
+                                        <select name="estado"
+                                                aria-label="Nuevo estado de solicitud {{ solicitud.id }}"
+                                                required>
 
                                             <option value="">
                                                 Seleccionar
@@ -138,7 +169,9 @@
 
                                 {% else %}
 
-                                    Estado final
+                                    <span class="final-state">
+                                        Estado final
+                                    </span>
 
                                 {% endif %}
 
@@ -156,8 +189,30 @@
 
     {% else %}
 
-        <p>No existen solicitudes registradas.</p>
+        <div class="empty-state">
+
+            <h3>No existen solicitudes registradas.</h3>
+
+            <p>
+                Las nuevas solicitudes aparecerán
+                automáticamente en esta sección.
+            </p>
+
+        </div>
 
     {% endif %}
+
+    <div class="admin-info">
+
+        <strong>Control de operaciones</strong>
+
+        <p>
+            Los cambios de estado se encuentran sujetos
+            a las reglas de negocio del sistema.
+            Las solicitudes completadas o canceladas
+            no pueden volver a modificarse.
+        </p>
+
+    </div>
 
 {% endblock %}

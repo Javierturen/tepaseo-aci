@@ -10,6 +10,7 @@ from wtforms import (
     TextAreaField,
     TimeField,
 )
+from wtforms.fields import SelectChoice
 from wtforms.validators import (
     DataRequired,
     Email,
@@ -20,6 +21,10 @@ from wtforms.validators import (
 )
 
 
+def normalizar_texto(valor):
+    return (valor or "").strip()
+
+
 def normalizar_telefono(valor):
     return re.sub(r"[\s()-]", "", valor or "")
 
@@ -27,11 +32,13 @@ def normalizar_telefono(valor):
 class SolicitudPaseoForm(FlaskForm):
     nombre = StringField(
         "Nombre completo",
+        filters=[normalizar_texto],
         validators=[DataRequired(), Length(max=120)],
     )
 
     correo = StringField(
         "Correo electrónico",
+        filters=[normalizar_texto],
         validators=[
             DataRequired(),
             Email(),
@@ -53,21 +60,23 @@ class SolicitudPaseoForm(FlaskForm):
 
     nombre_mascota = StringField(
         "Nombre de tu perro",
+        filters=[normalizar_texto],
         validators=[DataRequired(), Length(max=100)],
     )
 
     raza = StringField(
         "Raza",
+        filters=[normalizar_texto],
         validators=[Optional(), Length(max=100)],
     )
 
     tamano = SelectField(
         "Tamaño de la mascota",
         choices=[
-            ("", "Seleccionar tamaño"),
-            ("pequeno", "Pequeño"),
-            ("mediano", "Mediano"),
-            ("grande", "Grande"),
+            SelectChoice("", "Seleccionar tamaño"),
+            SelectChoice("pequeno", "Pequeño"),
+            SelectChoice("mediano", "Mediano"),
+            SelectChoice("grande", "Grande"),
         ],
         validators=[DataRequired()],
     )
@@ -96,6 +105,7 @@ class SolicitudPaseoForm(FlaskForm):
 
     observaciones = TextAreaField(
         "Observaciones adicionales",
+        filters=[normalizar_texto],
         validators=[Optional(), Length(max=500)],
     )
 
@@ -114,11 +124,13 @@ class SolicitudPaseoForm(FlaskForm):
 class PostulacionForm(FlaskForm):
     nombre = StringField(
         "Nombre completo",
+        filters=[normalizar_texto],
         validators=[DataRequired(), Length(max=120)],
     )
 
     correo = StringField(
         "Correo electrónico",
+        filters=[normalizar_texto],
         validators=[
             DataRequired(),
             Email(),
@@ -146,11 +158,13 @@ class PostulacionForm(FlaskForm):
 
     experiencia = TextAreaField(
         "Experiencia con mascotas",
+        filters=[normalizar_texto],
         validators=[DataRequired(), Length(max=1000)],
     )
 
     disponibilidad = TextAreaField(
         "Disponibilidad horaria",
+        filters=[normalizar_texto],
         validators=[DataRequired(), Length(max=500)],
     )
 

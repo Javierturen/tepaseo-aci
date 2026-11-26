@@ -6,6 +6,7 @@ from flask import (
     request,
     url_for,
 )
+from wtforms.fields import SelectChoice
 
 from app.extensions import db
 from app.forms import PostulacionForm, SolicitudPaseoForm
@@ -16,21 +17,27 @@ from app.services import crear_postulacion, crear_solicitud
 public = Blueprint("public", __name__)
 
 
-@public.route("/")
-def index():
-    return render_template("index.html")
-
-
-@public.route("/servicios")
-def servicios():
-    listado = db.session.scalars(
+def obtener_servicios_activos():
+    return db.session.scalars(
         db.select(Servicio)
         .filter_by(activo=True)
         .order_by(Servicio.id)
     ).all()
 
+
+@public.route("/")
+def index():
     return render_template(
-        "servicios.html", servicios=listado
+        "index.html",
+        servicios=obtener_servicios_activos(),
+    )
+
+
+@public.route("/servicios")
+def servicios():
+    return render_template(
+        "servicios.html",
+        servicios=obtener_servicios_activos(),
     )
 
 
@@ -63,19 +70,19 @@ def solicitar_paseo():
         .order_by(Comuna.nombre)
     ).all()
 
-    servicios = db.session.scalars(
-        db.select(Servicio)
-        .filter_by(activo=True)
-        .order_by(Servicio.id)
-    ).all()
+    servicios = obtener_servicios_activos()
 
-    form.comuna.choices = [(0, "Seleccionar comuna")] + [
-        (comuna.id, comuna.nombre)
+    form.comuna.choices = [
+        SelectChoice("0", "Seleccionar comuna")
+    ] + [
+        SelectChoice(str(comuna.id), comuna.nombre)
         for comuna in comunas
     ]
 
-    form.servicio.choices = [(0, "Seleccionar servicio")] + [
-        (servicio.id, servicio.nombre)
+    form.servicio.choices = [
+        SelectChoice("0", "Seleccionar servicio")
+    ] + [
+        SelectChoice(str(servicio.id), servicio.nombre)
         for servicio in servicios
     ]
 
@@ -104,8 +111,10 @@ def postulacion():
         db.select(Comuna).order_by(Comuna.nombre)
     ).all()
 
-    form.comuna.choices = [(0, "Seleccionar comuna")] + [
-        (comuna.id, comuna.nombre)
+    form.comuna.choices = [
+        SelectChoice("0", "Seleccionar comuna")
+    ] + [
+        SelectChoice(str(comuna.id), comuna.nombre)
         for comuna in comunas
     ]
 

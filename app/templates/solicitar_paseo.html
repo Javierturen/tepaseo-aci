@@ -1,101 +1,188 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Solicitar paseo - Tepaseo.cl
+    Solicitar paseo | Tepaseo.cl
 {% endblock %}
 
 {% block content %}
 
+    <p class="eyebrow">
+        Su próxima aventura comienza aquí
+    </p>
+
     <h1>Solicita un paseo para tu perro</h1>
 
-    <p>
-        Completa el formulario y nuestro equipo se pondrá
-        en contacto contigo para coordinar el servicio.
+    <p class="hero-description">
+        Cuéntanos sobre tu mascota y nuestro equipo
+        se pondrá en contacto contigo para coordinar
+        su próximo paseo.
     </p>
 
     <form method="POST">
 
         {{ form.hidden_tag() }}
 
-        <h2>Datos del cliente</h2>
-
-        {% for campo in [form.nombre,
-                         form.correo,
-                         form.telefono] %}
-
-            <p>
-                {{ campo.label }}<br>
-                {{ campo() }}
-
-                {% for error in campo.errors %}
-                    <span style="color: red;">
-                        {{ error }}
-                    </span>
-                {% endfor %}
-            </p>
-
-        {% endfor %}
-
-        <h2>Datos de la mascota</h2>
-
-        {% for campo in [form.nombre_mascota,
-                         form.raza,
-                         form.tamano] %}
-
-            <p>
-                {{ campo.label }}<br>
-                {{ campo() }}
-
-                {% for error in campo.errors %}
-                    <span style="color: red;">
-                        {{ error }}
-                    </span>
-                {% endfor %}
-            </p>
-
-        {% endfor %}
-
-        <h2>Datos del servicio</h2>
-
-        {% for campo in [form.comuna,
-                         form.servicio,
-                         form.fecha,
-                         form.horario,
-                         form.observaciones] %}
-
-            <p>
-                {{ campo.label }}<br>
-                {{ campo() }}
-
-                {% for error in campo.errors %}
-                    <span style="color: red;">
-                        {{ error }}
-                    </span>
-                {% endfor %}
-            </p>
-
-        {% endfor %}
+        <h2>01. Datos del cliente</h2>
 
         <p>
-            {{ form.acepta_datos() }}
-            {{ form.acepta_datos.label }}
+            Necesitamos tus datos para comunicarnos contigo.
+        </p>
 
-            {% for error in form.acepta_datos.errors %}
-                <span style="color: red;">
+        <div>
+
+            {{ form.nombre.label }}
+
+            {{ form.nombre(
+                placeholder="Ej. Cliente Demo",
+                autocomplete="name"
+            ) }}
+
+            {% for error in form.nombre.errors %}
+                <span style="color: #A12626;">
                     {{ error }}
                 </span>
             {% endfor %}
+
+        </div>
+
+        <div>
+
+            {{ form.correo.label }}
+
+            {{ form.correo(
+                placeholder="correo@ejemplo.com",
+                autocomplete="email"
+            ) }}
+
+            {% for error in form.correo.errors %}
+                <span style="color: #A12626;">
+                    {{ error }}
+                </span>
+            {% endfor %}
+
+        </div>
+
+        <div>
+
+            {{ form.telefono.label }}
+
+            {{ form.telefono(
+                placeholder="+56 9 1234 5678",
+                autocomplete="tel"
+            ) }}
+
+            {% for error in form.telefono.errors %}
+                <span style="color: #A12626;">
+                    {{ error }}
+                </span>
+            {% endfor %}
+
+        </div>
+
+        <h2>02. Datos de la mascota</h2>
+
+        <p>
+            Queremos conocer a tu mejor amigo.
+        </p>
+
+        {% for campo in [
+            form.nombre_mascota,
+            form.raza,
+            form.tamano
+        ] %}
+
+            <div>
+
+                {{ campo.label }}
+
+                {{ campo() }}
+
+                {% for error in campo.errors %}
+
+                    <span style="color: #A12626;">
+                        {{ error }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        {% endfor %}
+
+        <h2>03. Datos del servicio</h2>
+
+        <p>
+            Selecciona la comuna, el servicio
+            y el horario que prefieres.
+        </p>
+
+        {% for campo in [
+            form.comuna,
+            form.servicio,
+            form.fecha,
+            form.horario,
+            form.observaciones
+        ] %}
+
+            <div>
+
+                {{ campo.label }}
+
+                {{ campo() }}
+
+                {% for error in campo.errors %}
+
+                    <span style="color: #A12626;">
+                        {{ error }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        {% endfor %}
+
+        <div class="flash success">
+
+            <strong>Antes de enviar tu solicitud</strong>
+
+            <p style="margin-bottom: 0;">
+                Nuestro equipo revisará la disponibilidad
+                y se pondrá en contacto contigo.
+                El envío de la solicitud no confirma
+                automáticamente el servicio.
+            </p>
+
+        </div>
+
+        <p>
+
+            {{ form.acepta_datos() }}
+
+            {{ form.acepta_datos.label }}
+
+            {% for error in form.acepta_datos.errors %}
+
+                <span style="color: #A12626;">
+                    {{ error }}
+                </span>
+
+            {% endfor %}
+
         </p>
 
         <button type="submit">
-            Enviar solicitud
+            Enviar solicitud de paseo
         </button>
 
     </form>
 
     <p>
-        El envío de una solicitud no confirma
-        automáticamente el servicio.
+        ¿Todavía no sabes qué servicio elegir?
+
+        <a href="{{ url_for('public.servicios') }}">
+            Revisa nuestros planes y precios.
+        </a>
     </p>
 
 {% endblock %}

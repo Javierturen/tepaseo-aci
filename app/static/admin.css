@@ -1,0 +1,501 @@
+/* ESTRUCTURA ADMINISTRATIVA */
+
+.admin-shell {
+    display: grid;
+    grid-template-columns: 245px minmax(0, 1fr);
+    min-height: 100vh;
+    background: #f2f5f1;
+}
+
+.admin-sidebar {
+    background: var(--forest);
+    color: var(--white);
+    padding: 32px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.admin-sidebar .brand {
+    margin-bottom: 10px;
+}
+
+.sidebar-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 13px 15px;
+    color: var(--sage);
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background: var(--green);
+    color: var(--white);
+    text-decoration: none;
+}
+
+.sidebar-nav svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.admin-sidebar form {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    margin: 12px 0 0;
+}
+
+.admin-sidebar button {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--white);
+}
+
+.admin-sidebar button:hover {
+    background: var(--green);
+}
+
+.admin-content {
+    min-width: 0;
+    padding: 35px;
+}
+
+.admin-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 35px;
+}
+
+.admin-topbar .eyebrow {
+    margin-bottom: 0;
+}
+
+.admin-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-avatar {
+    display: grid;
+    place-items: center;
+    width: 43px;
+    height: 43px;
+    background: var(--sage);
+    border-radius: 50%;
+    color: var(--forest);
+    font-weight: 800;
+}
+
+.admin-user strong {
+    display: block;
+    color: var(--forest);
+    font-size: 14px;
+}
+
+.admin-user small {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.admin-heading {
+    margin-bottom: 30px;
+}
+
+.admin-heading h1 {
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 750;
+    letter-spacing: -1.5px;
+    margin-bottom: 10px;
+}
+
+.admin-heading p {
+    margin-bottom: 0;
+}
+
+/* INDICADORES */
+
+.admin-content .dashboard-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: 35px;
+}
+
+.metric-card {
+    position: relative;
+}
+
+.metric-icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    color: var(--forest);
+    background: var(--sage);
+    border-radius: 12px;
+    margin-bottom: 18px;
+}
+
+.metric-icon svg {
+    width: 23px;
+    height: 23px;
+}
+
+.dashboard-grid .metric-card.pending {
+    border-top-color: var(--gold);
+}
+
+.dashboard-grid .metric-card.pending .metric-icon {
+    background: #f5e9cf;
+    color: #805c23;
+}
+
+.admin-content .dashboard-grid h3 {
+    min-height: 45px;
+}
+
+.dashboard-grid .metric-card small {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* TARJETAS DE GESTION */
+
+.admin-section-title {
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 23px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.operation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.operation-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+}
+
+.operation-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.operation-card .button {
+    margin-top: 10px;
+}
+
+.admin-info {
+    background: var(--sage);
+    padding: 22px;
+    border-radius: 14px;
+    margin-top: 30px;
+    color: var(--forest);
+}
+
+.admin-info p {
+    margin: 7px 0 0;
+}
+
+.admin-footer {
+    padding-top: 35px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* TABLAS ADMINISTRATIVAS */
+
+.admin-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.record-count {
+    color: var(--forest);
+    font-weight: 650;
+}
+
+.admin-content table {
+    font-size: 13px;
+}
+
+.admin-content td,
+.admin-content th {
+    padding: 16px 14px;
+}
+
+.admin-content td {
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+
+.admin-content td form {
+    min-width: 150px;
+}
+
+.admin-content td select {
+    min-height: 38px;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.admin-content td button {
+    width: 100%;
+}
+
+.table-person {
+    display: block;
+    font-weight: 700;
+    color: var(--forest);
+}
+
+.table-detail {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.empty-state {
+    padding: 55px 25px;
+    text-align: center;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-top: 24px;
+}
+
+.empty-state h3 {
+    margin-bottom: 8px;
+}
+
+/* ETIQUETAS DE ESTADO */
+
+.status-pill {
+    display: inline-block;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    background: #edf0ed;
+    color: var(--ink);
+}
+
+.status-pill[data-state="pendiente"],
+.status-pill[data-state="recibida"] {
+    background: #f5e9cf;
+    color: #805c23;
+}
+
+.status-pill[data-state="confirmada"],
+.status-pill[data-state="en revisión"] {
+    background: #e0e9f8;
+    color: #31558e;
+}
+
+.status-pill[data-state="completada"],
+.status-pill[data-state="aceptada"] {
+    background: #ddefe2;
+    color: #246443;
+}
+
+.status-pill[data-state="cancelada"],
+.status-pill[data-state="rechazada"] {
+    background: #f8e2df;
+    color: #a12626;
+}
+
+.final-state {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* INICIO DE SESION */
+
+.login-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1000px;
+    margin: 25px auto;
+    border-radius: 25px;
+    background: var(--white);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.login-brand-panel {
+    background: var(--forest);
+    padding: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+
+.login-brand-panel h2 {
+    color: var(--white);
+    font-size: 40px;
+}
+
+.login-brand-panel p {
+    color: var(--sage);
+}
+
+.login-brand-panel .eyebrow {
+    color: var(--gold);
+}
+
+.login-brand-panel img {
+    width: 75px;
+    margin-bottom: 20px;
+}
+
+.login-form-panel {
+    padding: 45px;
+}
+
+.login-form-panel h1 {
+    font-size: 35px;
+    letter-spacing: -1px;
+}
+
+.login-form-panel form {
+    padding: 0;
+    border: none;
+    box-shadow: none;
+}
+
+.login-form-panel button {
+    width: 100%;
+}
+
+.login-note {
+    padding: 15px;
+    background: var(--sage);
+    border-radius: 10px;
+    font-size: 13px;
+    color: var(--forest);
+}
+
+/* ADAPTACION A PANTALLAS PEQUENAS */
+
+@media (max-width: 1100px) {
+    .admin-shell {
+        grid-template-columns: 210px minmax(0, 1fr);
+    }
+
+    .admin-content {
+        padding: 25px;
+    }
+
+    .admin-content .dashboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    .admin-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-sidebar {
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .sidebar-bottom {
+        margin-top: 0;
+        padding-top: 15px;
+    }
+
+    .admin-sidebar button {
+        width: auto;
+    }
+
+    .admin-content {
+        padding: 20px;
+    }
+
+    .operation-grid,
+    .login-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .login-brand-panel,
+    .login-form-panel {
+        padding: 30px;
+    }
+
+    .login-brand-panel h2 {
+        font-size: 30px;
+    }
+
+    .admin-user small {
+        display: none;
+    }
+}
+
+@media (max-width: 420px) {
+    .admin-content .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-topbar {
+        flex-wrap: wrap;
+    }
+}

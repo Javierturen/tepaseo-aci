@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block layout %}
+
+    <div class="admin-shell">
+
+        <aside class="admin-sidebar">
+
+            <a class="brand"
+               href="{{ url_for('admin.panel') }}">
+
+                <img src="{{ url_for('static', filename='logo.svg') }}"
+                     alt="">
+
+                <span class="brand-name">
+                    tepaseo<span>.cl</span>
+                </span>
+
+            </a>
+
+            <div>
+
+                <p class="sidebar-label">
+                    Espacio de trabajo
+                </p>
+
+                <nav class="sidebar-nav"
+                     aria-label="Navegación administrativa">
+
+                    <a href="{{ url_for('admin.panel') }}"
+                       class="{{ 'active' if request.endpoint == 'admin.panel' else '' }}">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.8">
+
+                            <rect x="3" y="3" width="7" height="7" rx="1"/>
+                            <rect x="14" y="3" width="7" height="7" rx="1"/>
+                            <rect x="3" y="14" width="7" height="7" rx="1"/>
+                            <rect x="14" y="14" width="7" height="7" rx="1"/>
+
+                        </svg>
+
+                        Resumen
+
+                    </a>
+
+                    <a href="{{ url_for('admin.solicitudes') }}"
+                       class="{{ 'active' if request.endpoint == 'admin.solicitudes' else '' }}">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.8">
+
+                            <rect x="5" y="4" width="14" height="18" rx="2"/>
+                            <rect x="9" y="2" width="6" height="4" rx="1"/>
+                            <path d="M8 11h8M8 15h8M8 19h5"/>
+
+                        </svg>
+
+                        Solicitudes
+
+                    </a>
+
+                    <a href="{{ url_for('admin.postulaciones') }}"
+                       class="{{ 'active' if request.endpoint == 'admin.postulaciones' else '' }}">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.8">
+
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M2 21v-3a7 7 0 0 1 14 0v3"/>
+                            <path d="M17 4a4 4 0 0 1 0 8M18 15a6 6 0 0 1 4 6"/>
+
+                        </svg>
+
+                        Postulaciones
+
+                    </a>
+
+                </nav>
+
+            </div>
+
+            <div class="sidebar-bottom">
+
+                <nav class="sidebar-nav">
+
+                    <a href="{{ url_for('public.index') }}">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.8">
+
+                            <circle cx="12" cy="12" r="9"/>
+                            <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/>
+
+                        </svg>
+
+                        Ver sitio web
+
+                    </a>
+
+                </nav>
+
+                <form method="POST"
+                      action="{{ url_for('admin.salir') }}">
+
+                    <input type="hidden"
+                           name="csrf_token"
+                           value="{{ csrf_token() }}">
+
+                    <button type="submit">
+                        Cerrar sesión
+                    </button>
+
+                </form>
+
+            </div>
+
+        </aside>
+
+        <main class="admin-content">
+
+            <header class="admin-topbar">
+
+                <p class="eyebrow">
+                    Centro de operaciones
+                </p>
+
+                <div class="admin-user">
+
+                    <div class="admin-avatar">
+                        {{ current_user.usuario[0]|upper }}
+                    </div>
+
+                    <div>
+
+                        <strong>{{ current_user.usuario }}</strong>
+
+                        <small>Administrador</small>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            {{ self.mensajes() }}
+
+            {% block admin_content %}{% endblock %}
+
+            <footer class="admin-footer">
+
+                Tepaseo.cl · Administración interna · 2026
+
+            </footer>
+
+        </main>
+
+    </div>
+
+{% endblock %}

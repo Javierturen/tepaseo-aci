@@ -1,28 +1,38 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Cobertura - Tepaseo.cl
+    Cobertura en Santiago | Tepaseo.cl
 {% endblock %}
 
 {% block content %}
 
+    <p class="eyebrow">
+        Cada vez más cerca de ti
+    </p>
+
     <h1>Consulta nuestra cobertura</h1>
 
-    <p>
-        Selecciona tu comuna para conocer si contamos
-        con servicios de paseo en tu sector.
+    <p class="hero-description">
+        Descubre si nuestros servicios de paseo
+        están disponibles en tu comuna.
     </p>
 
     <form method="GET"
           action="{{ url_for('public.cobertura') }}">
 
-        <label for="comuna">
-            Selecciona tu comuna:
-        </label>
+        <h2>¿Dónde vive tu perro?</h2>
+
+        <p>
+            Selecciona tu comuna de residencia.
+        </p>
+
+        <label for="comuna">Comuna</label>
 
         <select name="comuna" id="comuna" required>
 
-            <option value="">Seleccionar comuna</option>
+            <option value="">
+                Seleccionar comuna
+            </option>
 
             {% for comuna in comunas %}
 
@@ -40,7 +50,9 @@
 
         </select>
 
-        <button type="submit">Consultar</button>
+        <button type="submit">
+            Consultar disponibilidad
+        </button>
 
     </form>
 
@@ -48,37 +60,94 @@
 
         {% if seleccionada.activa %}
 
-            <h2 style="color: green;">
-                ¡Tenemos cobertura en
-                {{ seleccionada.nombre }}!
-            </h2>
+            <div class="flash success" role="status">
 
-            <p>
-                Ya puedes enviar una solicitud de paseo
-                para tu mascota.
-            </p>
+                <strong>
+                    ¡Tenemos cobertura en {{ seleccionada.nombre }}!
+                </strong>
 
-            <a href="{{ url_for('public.solicitar_paseo') }}">
-                Solicitar paseo
-            </a>
+                <p>
+                    Ya puedes enviar una solicitud de paseo
+                    para tu mascota.
+                </p>
+
+                <a class="button"
+                   href="{{ url_for('public.solicitar_paseo') }}">
+                    Solicitar paseo
+                </a>
+
+            </div>
 
         {% else %}
 
-            <h2 style="color: red;">
-                Actualmente no contamos con cobertura en
-                {{ seleccionada.nombre }}.
-            </h2>
+            <div class="flash error" role="status">
 
-            <p>
-                Esperamos llegar pronto a tu comuna.
-            </p>
+                <strong>
+                    Actualmente no contamos con cobertura en
+                    {{ seleccionada.nombre }}.
+                </strong>
+
+                <p>
+                    Esperamos ampliar nuestros servicios
+                    y llegar pronto a tu comuna.
+                </p>
+
+            </div>
 
         {% endif %}
 
     {% elif request.args.get("comuna") %}
 
-        <p>Selecciona una comuna válida.</p>
+        <div class="flash error" role="status">
+            Selecciona una comuna válida.
+        </div>
 
     {% endif %}
+
+    <section class="section">
+
+        <p class="eyebrow">
+            Nuestra presencia en Santiago
+        </p>
+
+        <h2>Comunas disponibles</h2>
+
+        <div class="service-grid">
+
+            {% for comuna in comunas if comuna.activa %}
+
+                <article class="service-card">
+
+                    <img src="{{ url_for(
+                        'static', filename='logo.svg'
+                    ) }}"
+                         width="40"
+                         height="40"
+                         alt="">
+
+                    <h3>{{ comuna.nombre }}</h3>
+
+                    <p>
+                        Servicio disponible.
+                    </p>
+
+                    <a class="button button-light"
+                       href="{{ url_for(
+                           'public.cobertura', comuna=comuna.id
+                       ) }}">
+                        Consultar
+                    </a>
+
+                </article>
+
+            {% else %}
+
+                <p>No existen comunas habilitadas.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
 
 {% endblock %}
