@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Cobertura - Tepaseo.cl</title>
+</head>
+<body>
+    <nav>
+        <a href="/">Inicio</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/cobertura">Cobertura</a>
+    </nav>
+
+    <h1>Consulta nuestra cobertura</h1>
+
+    <form method="GET" action="/cobertura">
+        <label for="comuna">Selecciona tu comuna:</label>
+
+        <select name="comuna" id="comuna" required>
+            <option value="">Seleccionar comuna</option>
+
+            {% for comuna in comunas %}
+                <option value="{{ comuna.id }}"
+                    {% if seleccionada and
+                          seleccionada.id == comuna.id %}
+                        selected
+                    {% endif %}>
+                    {{ comuna.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Consultar</button>
+    </form>
+
+    {% if seleccionada %}
+        {% if seleccionada.activa %}
+            <h2 style="color: green;">
+                ¡Tenemos cobertura en
+                {{ seleccionada.nombre }}!
+            </h2>
+        {% else %}
+            <h2 style="color: red;">
+                Actualmente no contamos con cobertura en
+                {{ seleccionada.nombre }}.
+            </h2>
+        {% endif %}
+    {% elif request.args.get("comuna") %}
+        <p>Selecciona una comuna válida.</p>
+    {% endif %}
+
+    <footer>
+        <p>Tepaseo.cl - Proyecto ACI 2026</p>
+    </footer>
+</body>
+</html>

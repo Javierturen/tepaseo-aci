@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Servicios - Tepaseo.cl</title>
+</head>
+<body>
+    <nav>
+        <a href="/">Inicio</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/cobertura">Cobertura</a>
+    </nav>
+
+    <h1>Nuestros servicios</h1>
+    <p>Encuentra el paseo ideal para tu mascota.</p>
+
+    {% for servicio in servicios %}
+        <article>
+            <h2>{{ servicio.nombre }}</h2>
+
+            <p>{{ servicio.descripcion }}</p>
+
+            <p>
+                Duración por paseo:
+                {{ servicio.duracion }} minutos
+            </p>
+
+            <p>
+                Precio:
+                ${{ "{:,}".format(servicio.precio).replace(",", ".") }}
+            </p>
+
+            <a href="/cobertura">Consultar cobertura</a>
+        </article>
+
+        <hr>
+    {% else %}
+        <p>No existen servicios disponibles.</p>
+    {% endfor %}
+
+    <footer>
+        <p>Tepaseo.cl - Proyecto ACI 2026</p>
+    </footer>
+</body>
+</html>
